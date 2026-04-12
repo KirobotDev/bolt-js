@@ -1138,6 +1138,8 @@ export default class App<AppCustomContext extends StringIndexed = StringIndexed>
       const actionListenerArgs = listenerArgs as SlackActionMiddlewareArgs;
       actionListenerArgs.action = actionListenerArgs.payload;
       // Add complete() and fail() utilities for function-related interactivity
+      // TODO: is there overlap with `function_executed` event here? function_executed events set functionExecutionId in context
+      // but are handled as IncomingEventType.Event, not Action, so currently no overlap. Review if this changes.
       if (context.functionExecutionId !== undefined) {
         listenerArgs.complete = createFunctionComplete(context, client);
         listenerArgs.fail = createFunctionFail(context, client);
